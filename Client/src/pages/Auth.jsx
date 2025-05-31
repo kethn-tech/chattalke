@@ -96,10 +96,10 @@ const Auth = () => {
   };
 const backendurl = import.meta.env.VITE_APP_SERVER_URL;
 const handleGithubLogin = () => {
-  window.location.href = `${backendUrl}/api/auth/github`;
+  window.location.href = `${backendurl}/api/auth/github`;
 };
 const handleLinkedinLogin = () => {
-  window.location.href = `${backendUrl}/api/auth/linkedin`;
+  window.location.href = `${backendurl}/api/auth/linkedin`;
 };
 
   return (
