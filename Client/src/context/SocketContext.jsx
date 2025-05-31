@@ -16,7 +16,8 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (userInfo) {
-      socket.current = io("http://localhost:4000", {
+      const socketUrl = import.meta.env.VITE_APP_SERVER_URL; // Update with your socket server URL
+      socket.current = io(socketUrl, {
         withCredentials: true,
         query: {
           userId: userInfo._id,

@@ -20,11 +20,12 @@ const signUp = async (req, res) => {
     );
 
     // Set cookie with appropriate settings for development
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days in milliseconds
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     return res.status(201).json({
@@ -69,11 +70,12 @@ const logIn = async (req, res) => {
     );
 
     // Set cookie with appropriate settings for development
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days in milliseconds
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
@@ -129,10 +131,10 @@ const logOut = async (req, res) => {
 };
 const githubAuth = (req, res) => {
   const redirectUri = encodeURIComponent(
-    "http://localhost:4000/api/auth/github/callback"
+    "https://chattalke.onrender.com/api/auth/github/callback"
   );
   const clientId = process.env.GITHUB_CLIENT_ID;
-  const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
+  const githubUrl = `https://chattalke.onrender.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
   res.redirect(githubUrl);
 };
 
@@ -185,15 +187,16 @@ const githubCallback = async (req, res) => {
     );
 
     // Set cookie and redirect to frontend (adjust URL as needed)
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
     // Redirect to your frontend app (adjust URL as needed)
-    res.redirect("http://localhost:5173/auth/"); // or /dashboard, etc.
+    res.redirect(process.env.CLIENT_URL + "/auth/"); // or /dashboard, etc.
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "GitHub OAuth failed" });
@@ -203,7 +206,7 @@ const githubCallback = async (req, res) => {
 // Step 1: Redirect to LinkedIn OAuth
 const linkedinAuth = (req, res) => {
   const redirectUri = encodeURIComponent(
-    "http://localhost:4000/api/auth/linkedin/callback"
+    "https://chattalke.onrender.com/api/auth/linkedin/callback"
   );
   const clientId = process.env.LINKEDIN_CLIENT_ID;
   const state = "randomstatestring"; // For CSRF protection, use a real random string in production
@@ -222,7 +225,8 @@ const linkedinCallback = async (req, res) => {
     return res.status(400).send("No code provided in callback.");
   }
 
-  const redirectUri = "http://localhost:4000/api/auth/linkedin/callback";
+  const redirectUri =
+    "https://chattalke.onrender.com/api/auth/linkedin/callback";
   try {
     // Exchange code for access token
     const tokenRes = await axios.post(
@@ -262,14 +266,15 @@ const linkedinCallback = async (req, res) => {
     );
 
     // Set cookie and redirect to frontend
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect("http://localhost:5173/"); // Or your frontend dashboard
+    res.redirect(process.env.CLIENT_URL); // Or your frontend dashboard
   } catch (err) {
     console.error(
       "LinkedIn OAuth error:",
@@ -292,6 +297,3 @@ module.exports = {
   linkedinAuth,
   linkedinCallback,
 };
-
-
-

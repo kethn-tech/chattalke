@@ -94,13 +94,13 @@ const Auth = () => {
       }
     }
   };
-
-  const handleGithubLogin = () => {
-    window.location.href = "http://localhost:4000/api/auth/github";
-  };
-  const handleLinkedinLogin = () => {
-    window.location.href = "http://localhost:4000/api/auth/linkedin";
-  };
+const backendurl = import.meta.env.VITE_APP_SERVER_URL;
+const handleGithubLogin = () => {
+  window.location.href = `${backendUrl}/api/auth/github`;
+};
+const handleLinkedinLogin = () => {
+  window.location.href = `${backendUrl}/api/auth/linkedin`;
+};
 
   return (
     <motion.div
