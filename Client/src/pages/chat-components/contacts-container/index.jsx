@@ -7,10 +7,10 @@ import { useStore } from "@/store/store";
 import DMList from "./components/dm-list/DMList";
 import AdminLink from "./components/admin-link";
 import { motion } from "framer-motion";
-import { MessageSquare, Users, X } from "lucide-react";
+import { MessageSquare, Users } from "lucide-react";
 
-const ContactsContainer = ({ onToggleSidebar, isMobile, showSidebar }) => {
-  const { dmContacts, setDmContacts, selectedChatData } = useStore();
+const ContactsContainer = () => {
+  const { dmContacts, setDmContacts } = useStore();
 
   useEffect(() => {
     const getDMContacts = async () => {
@@ -30,12 +30,10 @@ const ContactsContainer = ({ onToggleSidebar, isMobile, showSidebar }) => {
 
   return (
     <motion.div
-      initial={{ x: isMobile ? 0 : -280, opacity: 0 }}
+      initial={{ x: -280, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={`${
-        isMobile ? "w-full h-screen" : "w-full md:w-[280px] h-screen"
-      } bg-dark-primary/95 border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col relative overflow-hidden`}
+      className="w-[280px] bg-dark-primary/95 h-screen border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col relative overflow-hidden"
     >
       {/* Gradient overlays for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-violet-500/5 pointer-events-none" />
@@ -46,21 +44,11 @@ const ContactsContainer = ({ onToggleSidebar, isMobile, showSidebar }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex items-center justify-between h-16 border-b border-dark-accent/30 bg-dark-accent/5 px-4"
+          className="flex items-center justify-center h-16 border-b border-dark-accent/30 bg-dark-accent/5"
         >
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-violet-500 text-transparent bg-clip-text">
             Messages
           </h1>
-
-          {/* Close button for mobile when chat is selected */}
-          {isMobile && selectedChatData && showSidebar && (
-            <button
-              onClick={onToggleSidebar}
-              className="p-2 hover:bg-dark-accent/30 rounded-lg transition-colors"
-            >
-              <X size={20} className="text-dark-text" />
-            </button>
-          )}
         </motion.div>
 
         <div className="px-4 mb-4">
@@ -84,7 +72,7 @@ const ContactsContainer = ({ onToggleSidebar, isMobile, showSidebar }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <DMList isMobile={isMobile} />
+            <DMList />
           </motion.div>
         </div>
       </div>

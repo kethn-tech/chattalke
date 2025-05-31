@@ -13,21 +13,10 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        xs: "480px",
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
-      screens: {
-        xs: "480px",
-        mobile: { max: "767px" },
-        tablet: { min: "768px", max: "1023px" },
-        desktop: { min: "1024px" },
-      },
       colors: {
         dark: {
           primary: "#1A1F2C",
@@ -103,10 +92,6 @@ module.exports = {
         "slide-in-bottom": {
           "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
-        },
-        "slide-in-left": {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(0)" },
         },
         pulse: {
           "0%, 100%": { opacity: "1" },
