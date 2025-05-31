@@ -137,7 +137,7 @@ const githubAuth = (req, res) => {
     "https://chattalke.onrender.com/api/auth/github/callback"
   );
   const clientId = process.env.GITHUB_CLIENT_ID;
-  const githubUrl = `https://chattalke.onrender.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
+  const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
   res.redirect(githubUrl);
 };
 
