@@ -13,10 +13,21 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
+        xs: "480px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
+      screens: {
+        xs: "480px",
+        mobile: { max: "767px" },
+        tablet: { min: "768px", max: "1023px" },
+        desktop: { min: "1024px" },
+      },
       colors: {
         dark: {
           primary: "#1A1F2C",
@@ -93,6 +104,10 @@ module.exports = {
           "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "slide-in-left": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
         pulse: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
@@ -104,7 +119,7 @@ module.exports = {
         "fade-in-down": {
           "0%": { opacity: "0", transform: "translateY(-10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
-        }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -116,12 +131,14 @@ module.exports = {
         "slide-in-bottom": "slide-in-bottom 0.3s ease-out",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "fade-in-up": "fade-in-up 0.3s ease-out",
-        "fade-in-down": "fade-in-down 0.3s ease-out"
+        "fade-in-down": "fade-in-down 0.3s ease-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-primary": "linear-gradient(to right, var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-primary":
+          "linear-gradient(to right, var(--tw-gradient-stops))",
       },
       boxShadow: {
         glow: "0 0 20px rgba(59, 130, 246, 0.5)",
@@ -142,8 +159,8 @@ module.exports = {
       spacing: {
         18: "4.5rem",
         22: "5.5rem",
-      }
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
