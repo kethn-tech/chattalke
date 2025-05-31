@@ -25,13 +25,16 @@ const ProfileInfo = () => {
         { withCredentials: true }
       );
       if (request.status === 200) {
-        navigate("/login");
-        setUserInfo(null);
+        setUserInfo(undefined); // or null, but match your router logic!
+        toast.success("Logged out successfully");
+        navigate("/auth");
       }
     } catch (err) {
+      toast.error("Logout failed");
       console.log(err);
     }
   };
+
 
   const imageUrl = userInfo.image? userInfo.image : null;
 

@@ -111,13 +111,15 @@ const getUserInfo = async (req, res, next) => {
     });
   }
 };
-
 const logOut = async (req, res) => {
   try {
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.clearCookie("token", {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      path: "/", // Important: must match the path used when setting the cookie
     });
 
     return res.status(200).json({
@@ -129,6 +131,7 @@ const logOut = async (req, res) => {
     });
   }
 };
+
 const githubAuth = (req, res) => {
   const redirectUri = encodeURIComponent(
     "https://chattalke.onrender.com/api/auth/github/callback"
