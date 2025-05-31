@@ -18,6 +18,19 @@ const app = express();
 // Configure express middleware
 app.use(express.json());
 app.use(cookieParser());
+app.get("/", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="google-site-verification" content="ZH0s1EIxm3VoFtkzwt8fZCRUyHb-lV5079i6l4SIMys" />
+      </head>
+      <body>
+        <h1>Welcome to Chattalke!</h1>
+      </body>
+    </html>
+  `);
+});
 
 // Configure CORS with specific settings
 const allowedOrigins = [
