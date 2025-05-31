@@ -22,6 +22,7 @@ export const SocketProvider = ({ children }) => {
         query: {
           userId: userInfo._id,
         },
+        transports: ["websocket", "polling"], // Ensure compatibility with different environments
       });
 
       socket.current.on("connect", () => {
