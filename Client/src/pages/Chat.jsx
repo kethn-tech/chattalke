@@ -18,13 +18,17 @@ const Chat = () => {
   }, [userInfo, navigate]);
 
   return (
-    <div className="flex justify-between min-h-screen">
-      <ContactsContainer />
-      {selectedChatType === undefined ? (
-        <EmptyChatContainer />
-      ) : (
-        <ChatContainer />
-      )}
+    <div className="flex w-full min-h-screen bg-dark-primary">
+      <div className="flex-none lg:block">
+        <ContactsContainer />
+      </div>
+      <div className="flex-1">
+        {selectedChatType === undefined ? (
+          <EmptyChatContainer />
+        ) : (
+          <ChatContainer />
+        )}
+      </div>
     </div>
   );
 };

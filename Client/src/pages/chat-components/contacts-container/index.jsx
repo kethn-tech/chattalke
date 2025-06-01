@@ -29,13 +29,12 @@ const ContactsContainer = () => {
     getDMContacts();
   }, []);
 
-  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
   return (
     <>
-      {/* Mobile Menu Button */}
       <button
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-dark-accent/20 rounded-lg backdrop-blur-sm"
         onClick={toggleMobileMenu}
@@ -47,18 +46,15 @@ const ContactsContainer = () => {
         )}
       </button>
 
-      <motion.div
-        initial={{ x: -280, opacity: 0 }}
-        animate={{ 
-          x: isMobileMenuOpen ? 0 : -280,
-          opacity: isMobileMenuOpen ? 1 : 0
-        }}
-        transition={{ type: "spring", stiffness: 100, damping: 20 }}
-        className={`fixed lg:relative w-[280px] bg-dark-primary/95 h-screen border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col z-40 lg:translate-x-0 ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+      <div
+        className={`w-[280px] bg-dark-primary/95 h-screen border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col 
+          fixed lg:relative lg:translate-x-0 transition-transform duration-300 z-40
+          ${
+            isMobileMenuOpen
+              ? "translate-x-0"
+              : "-translate-x-full lg:translate-x-0"
+          }`}
       >
-        {/* Gradient overlays for depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-violet-500/5 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/80 to-transparent pointer-events-none" />
 
@@ -108,8 +104,8 @@ const ContactsContainer = () => {
         >
           <ProfileInfo />
         </motion.div>
-      </motion.div>
-      {/* Overlay for mobile */}
+      </div>
+
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
@@ -119,4 +115,5 @@ const ContactsContainer = () => {
     </>
   );
 };
+
 export default ContactsContainer;
