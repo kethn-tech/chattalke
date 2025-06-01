@@ -5,7 +5,7 @@ import MessageBar from './components/message-bar'
 
 const ChatContainer = () => {
   return (
-    <div className="flex-1 h-[100vh] bg-dark-primary flex flex-col relative overflow-hidden lg:ml-0 ml-0">
+    <div className="flex-1 h-screen bg-dark-primary flex flex-col relative overflow-hidden">
       {/* Modern gradient background with subtle patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,130,246,0.08),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(147,51,234,0.08),transparent_50%)]" />
