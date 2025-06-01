@@ -18,7 +18,7 @@ const Chat = () => {
   }, [userInfo, navigate]);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between min-h-screen">
       <ContactsContainer />
       {selectedChatType === undefined ? (
         <EmptyChatContainer />
