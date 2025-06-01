@@ -33,7 +33,6 @@ const ContactsContainer = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
   return (
     <>
       {/* Mobile Menu Button */}
@@ -50,9 +49,9 @@ const ContactsContainer = () => {
 
       <motion.div
         initial={{ x: -280, opacity: 0 }}
-        animate={{
+        animate={{ 
           x: isMobileMenuOpen ? 0 : -280,
-          opacity: isMobileMenuOpen ? 1 : 0,
+          opacity: isMobileMenuOpen ? 1 : 0
         }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`fixed lg:relative w-[280px] bg-dark-primary/95 h-screen border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col z-40 lg:translate-x-0 ${
@@ -110,7 +109,6 @@ const ContactsContainer = () => {
           <ProfileInfo />
         </motion.div>
       </motion.div>
-
       {/* Overlay for mobile */}
       {isMobileMenuOpen && (
         <div
@@ -121,5 +119,4 @@ const ContactsContainer = () => {
     </>
   );
 };
-
 export default ContactsContainer;
