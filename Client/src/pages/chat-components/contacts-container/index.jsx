@@ -49,11 +49,15 @@ const ContactsContainer = () => {
       <div
         className={`w-[280px] bg-dark-primary/95 h-screen border-r border-dark-accent/30 backdrop-blur-sm shadow-glow flex flex-col 
           fixed lg:relative lg:translate-x-0 transition-transform duration-300 z-40
+<<<<<<< HEAD
           ${
             isMobileMenuOpen
               ? "translate-x-0"
               : "-translate-x-full lg:translate-x-0"
           }`}
+=======
+          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+>>>>>>> a8e3c83853af57c1e907180ab061af3e9b482959
       >
         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-violet-500/5 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/80 to-transparent pointer-events-none" />

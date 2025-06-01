@@ -23,11 +23,15 @@ const Chat = () => {
         <ContactsContainer />
       </div>
       <div className="flex-1">
+<<<<<<< HEAD
         {selectedChatType === undefined ? (
           <EmptyChatContainer />
         ) : (
           <ChatContainer />
         )}
+=======
+        {selectedChatType === undefined ? <EmptyChatContainer /> : <ChatContainer />}
+>>>>>>> a8e3c83853af57c1e907180ab061af3e9b482959
       </div>
     </div>
   );
