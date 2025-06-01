@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs";
-// Ensure that Prism’s dependencies load in proper order:
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
@@ -25,7 +24,7 @@ const MessageBar = () => {
   const [isCodeMode, setIsCodeMode] = useState(false);
   const [language, setLanguage] = useState("javascript");
   const emojiPickerRef = useRef(null);
-  const editorContainerRef = useRef(null); // Ref for the code editor container
+  const editorContainerRef = useRef(null);
   const { selectedChatType, selectedChatData, userInfo } = useStore();
   const socket = useSocket();
   const fileInputRef = useRef();
@@ -57,7 +56,7 @@ const MessageBar = () => {
   const toggleCodeMode = () => {
     setIsCodeMode(!isCodeMode);
     if (!isCodeMode) {
-      setMessage(""); // Clear message when entering code mode
+      setMessage("");
     }
   };
 
@@ -68,7 +67,6 @@ const MessageBar = () => {
     };
   }, []);
 
-  // Auto-scroll the code editor container when message (code) changes
   useEffect(() => {
     if (isCodeMode && editorContainerRef.current) {
       editorContainerRef.current.scrollTop =
@@ -82,14 +80,14 @@ const MessageBar = () => {
       animate={{ y: 0, opacity: 1 }}
       className="p-4 bg-[#1a1b1e]/95 backdrop-blur-xl border-t border-[#2a2b2e] relative z-10"
     >
-      <div className="flex flex-col gap-2 ">
+      <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 bg-[#2a2b2e] rounded-xl p-2">
           <div className="flex items-center gap-1">
             <div className="relative">
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-gray-400 hover:text-white hover:bg-[#3a3b3e] w-9 h-9 rounded-lg"
+                className="text-gray-400 hover:text-white hover:bg-[#3a3b3e] w-9 h-9 rounded-lg hidden sm:flex"
                 onClick={() => setEmojiPickerOpen(!emojiPickerOpen)}
               >
                 <Smile size={20} />
@@ -132,7 +130,6 @@ const MessageBar = () => {
 
           <div className="flex-1">
             {isCodeMode ? (
-              // Wrap the Editor in a container with a ref and overflow auto
               <div
                 ref={editorContainerRef}
                 style={{
