@@ -63,39 +63,43 @@ export const createChatSlice = (set, get) => ({
 
   addMessage: (message) => {
     const selectedChatMessages = get().selectedChatMessages;
-    const selectedChatType = get().selectedChatType;
-    const dmContacts = get().dmContacts;
+    const selectedChatData = get().selectedChatData;
     const userInfo = get().userInfo;
     const unreadMessages = get().unreadMessages;
+    const dmContacts = get().dmContacts;
 
-    // Determine the other user in the DM
-    let otherUser = null;
+    // Determine the chat partner's ID for this message
+    let chatPartnerId = null;
     if (userInfo) {
       if (message.sender && message.sender._id !== userInfo._id) {
-        otherUser = message.sender;
-        // Increment unread count if this chat is not currently selected
-        if (
-          !get().selectedChatData ||
-          get().selectedChatData._id !== message.sender._id
-        ) {
-          set({
-            unreadMessages: {
-              ...unreadMessages,
-              [message.sender._id]:
-                (unreadMessages[message.sender._id] || 0) + 1,
-            },
-          });
-        }
+        chatPartnerId = message.sender._id;
       } else if (message.recipient && message.recipient._id !== userInfo._id) {
-        otherUser = message.recipient;
+        chatPartnerId = message.recipient._id;
       }
     }
 
-    // Move the relevant contact to the top or add if not present
+    // Only add to selectedChatMessages if the message is for the currently open chat
+    if (selectedChatData && selectedChatData._id === chatPartnerId) {
+      set({
+        selectedChatMessages: [...selectedChatMessages, message],
+      });
+    } else {
+      // Increment unread count if the message is not for the currently open chat
+      if (chatPartnerId) {
+        set({
+          unreadMessages: {
+            ...unreadMessages,
+            [chatPartnerId]: (unreadMessages[chatPartnerId] || 0) + 1,
+          },
+        });
+      }
+    }
+
+    // Update contacts list logic (move contact to top, etc.) as before
     let updatedContacts = dmContacts.slice();
-    if (otherUser) {
+    if (chatPartnerId) {
       const existingIndex = dmContacts.findIndex(
-        (c) => c._id === otherUser._id
+        (c) => c._id === chatPartnerId
       );
       if (existingIndex !== -1) {
         // Move to top
@@ -103,43 +107,9 @@ export const createChatSlice = (set, get) => ({
         updatedContacts = [contact, ...updatedContacts];
       } else {
         // Add to top (for first-time message)
-        updatedContacts = [otherUser, ...updatedContacts];
-        // Trigger notification for new DM contact (both sender and receiver)
-        if (typeof get().triggerNotification === "function") {
-          get().triggerNotification({ type: "new_dm", user: otherUser });
-        }
-        // Optionally, trigger notification for the current user if they are the receiver
-        if (
-          userInfo &&
-          message.recipient &&
-          message.recipient._id === userInfo._id
-        ) {
-          if (typeof get().triggerNotification === "function") {
-            get().triggerNotification({
-              type: "new_dm_received",
-              user: message.sender,
-            });
-          }
-        }
-        // Optionally, set selectedChatData to the new contact if desired
-        set({ selectedChatData: otherUser, selectedChatType: "dm" });
+        updatedContacts = [message.sender, ...updatedContacts];
       }
       set({ dmContacts: updatedContacts });
     }
-
-    set({
-      selectedChatMessages: [
-        ...selectedChatMessages,
-        {
-          ...message,
-          recipient:
-            selectedChatType === "group"
-              ? message.recipient
-              : message.recipient,
-          sender:
-            selectedChatType === "group" ? message.sender : message.sender,
-        },
-      ],
-    });
   },
 });
